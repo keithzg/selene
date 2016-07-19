@@ -1,0 +1,17 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Selene
+Comment=Attempt to rewrite Luna from scratch in pure QML.
+Type=Service
+Icon=luna
+X-KDE-PluginInfo-Author=keithzg
+X-KDE-PluginInfo-Email=keithzg@gmail.com
+X-KDE-PluginInfo-License=copyleft-next
+X-KDE-PluginInfo-Name=org.kde.plasma.selene
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://keithzg.ca
+X-KDE-ServiceTypes=Plasma/Applet
+X-Plasma-API=declarativeappletscript
+X-Plasma-MainScript=ui/main.qml
+X-Plasma-RemoteLocation=
+X-KDE-PluginInfo-Category=Windows and Tasks
