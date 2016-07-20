@@ -14,19 +14,22 @@ import QtQuick.Layouts 1.1
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.kquickcontrolsaddons 2.0 as QtExtra
 import org.kde.plasma.plasmoid 2.0
+import org.kde.plasma.extras 2.0 as PlasmaExtras
+import org.kde.plasma.calendar 2.0 as PlasmaCalendar
 
 
 
 Item {
 	
 	Plasmoid.backgroundHints: PlasmaCore.Types.NoBackground
-	id: main
+	id: root
 	width: 400
 	height: 400
 	
 	property var locale: Qt.locale()
-	property date currentDate: new Date()
+	readonly property date currentDateTime: dataSource.data.Local ? dataSource.data.Local.DateTime : new Date()
 	property string dateString
+	
 		
 	Image {
 		id: moonBase
@@ -63,17 +66,28 @@ Item {
 		return Math.floor(phase /(24*3600)) + 1;
 	}
 	
+	PlasmaCore.DataSource {
+		id: dataSource
+		engine: "time"
+		connectedSources: ["Local"]
+		interval: 60000
+		intervalAlignment: PlasmaCore.Types.AlignToHour
+	}
+	
 	Component.onCompleted: {
-		dateString = currentDate.toLocaleDateString();
+		dateString = date.toLocaleDateString();
 		print(Date.fromLocaleDateString(dateString));
-		var year = currentDate.toLocaleDateString(locale, "yyyy");
-		var month = currentDate.toLocaleDateString(locale, "MM");
-		var day = currentDate.toLocaleDateString(locale, "dd");
+		var year = date.toLocaleDateString(locale, "yyyy");
+		var month = date.toLocaleDateString(locale, "MM");
+		var day = date.toLocaleDateString(locale, "dd");
 		var number = simpleMoon(year,month,day);
 		var source = number + ".svg";
 		moonOverlay.source = source;
 		
 	}
 
+	// I don't know why this doesn't work...
+	Plasmoid.toolTipMainText: "Test"
+	Plasmoid.toolTipSubText: "Subtest"
 	
 }
