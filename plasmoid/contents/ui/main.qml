@@ -27,7 +27,7 @@ Item {
 	height: 400
 	
 	property var locale: Qt.locale()
-	readonly property date currentDateTime: dataSource.data.Local ? dataSource.data.Local.DateTime : new Date()
+	readonly property date currentDate: dataSource.data.Local ? dataSource.data.Local.DateTime : new Date()
 	property string dateString
 	
 		
@@ -75,11 +75,11 @@ Item {
 	}
 	
 	Component.onCompleted: {
-		dateString = date.toLocaleDateString();
+		dateString = currentDate.toLocaleDateString();
 		print(Date.fromLocaleDateString(dateString));
-		var year = date.toLocaleDateString(locale, "yyyy");
-		var month = date.toLocaleDateString(locale, "MM");
-		var day = date.toLocaleDateString(locale, "dd");
+		var year = currentDate.toLocaleDateString(locale, "yyyy");
+		var month = currentDate.toLocaleDateString(locale, "MM");
+		var day = currentDate.toLocaleDateString(locale, "dd");
 		var number = simpleMoon(year,month,day);
 		var source = number + ".svg";
 		moonOverlay.source = source;
