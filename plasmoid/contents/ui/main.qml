@@ -81,13 +81,35 @@ Item {
 		var month = currentDate.toLocaleDateString(locale, "MM");
 		var day = currentDate.toLocaleDateString(locale, "dd");
 		var number = simpleMoon(year,month,day);
+		if (number == 30) { number = 0; }
 		var source = number + ".svg";
 		moonOverlay.source = source;
+		phaseTip.subText = i18n("Lunar phase day ") + number + i18n(" of 29");
+		if (number == 0) { phaseTip.mainText = i18n("New Moon"); }
+		else if (number < 8) { phaseTip.mainText = i18n("Waxing Crescent"); }
+		else if (number == 8) { phaseTip.mainText = i18n("First Quarter"); }
+		else if (number < 14) { phaseTip.mainText = i18n("Waxing Gibbous"); }
+		else if (number == 14) { phaseTip.mainText = i18n("Full Moon"); }
+		else if (number < 22) { phaseTip.mainText = i18n("Waning Gibbous"); }
+		else if (number == 22) { phaseTip.mainText = i18n("Last Quarter"); }
+		else if (number < 30) { phaseTip.mainText = i18n("Waning Crescent"); }
+		
 		
 	}
-
-	// I don't know why this doesn't work...
-	Plasmoid.toolTipMainText: "Test"
-	Plasmoid.toolTipSubText: "Subtest"
+	
+	PlasmaCore.ToolTipArea {
+		id: phaseTip
+		anchors.fill: parent
+		mainText : i18n("Moon Phase")
+		subText : i18n("If you're reading this, something has gone wrong!")
+		icon : plasmoid.configuration.icon
+		
+		MouseArea {
+		id: mouseArea
+		anchors.fill: parent
+		hoverEnabled: true
+		onClicked: showdesktop.showDesktop();
+		}
+	}
 	
 }
